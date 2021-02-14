@@ -36,20 +36,7 @@ public class WebQuizController {
 	@Autowired
 	AccessControlService<Question> accessControlServiceQuestion;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		return "index";
-	}
 
-	@RequestMapping(value = "/userList", method = RequestMethod.GET)
-	public String userList() {
-		return "pages/userList";
-	}
-
-	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-	public String dashboard() {
-		return "pages/dashboard";
-	}
 
 	@RequestMapping(value = "/createQuiz", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")

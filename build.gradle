@@ -20,12 +20,13 @@ configurations {
 }
 
 dependencies {
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
+   developmentOnly("org.springframework.boot:spring-boot-devtools")
   
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//implementation 'org.springframework.session:spring-session-jdbc'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
 	runtimeOnly 'com.h2database:h2'
@@ -46,4 +47,31 @@ dependencies {
 
 test {
 	//useJUnitPlatform()
+}
+
+task reload(type: Copy) {
+    from 'src/main/resources'
+    into 'build/resources/main'
+    include 'static/**'
+    include 'templates/**'
+    dependsOn('reloadModule')
+}
+
+task reloadModule(type: Copy){
+  from '../module/src/main/resources'
+  into 'build/resources/main'
+  include 'static/**'
+  include 'templates/**'
+}
+
+task restart {
+  dependsOn(classes)
+  dependsOn('restartModule')
+}
+
+task restartModule(type: Copy){
+  from '../module/build/classes/'
+  into 'build/classes'
+  
+  dependsOn(':module:classes')
 }
