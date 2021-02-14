@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<base href="/">
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">SpringBoot AdminLTE</title>
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+<link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/daterangepicker/daterangepicker.css}">
+<link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/fontawesome-free/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/jqvmap/jqvmap.min.css}">
+<link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css}">
+<link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/summernote/summernote-bs4.css}">
+<link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css}">
+<link rel="stylesheet" th:href="@{/webjars/AdminLTE/dist/css/adminlte.min.css}">
+<link rel="stylesheet" th:href="@{/webjars/ionicons/css/ionicons.min.css}">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <header class="main-header">
+            <div th:replace="/fragments/header"></div>
+        </header>
+        <aside class="main-sidebar">
+            <div th:replace="/fragments/main-sidebar"></div>
+        </aside>
+        <div class="content-wrapper">
+            <section class="content-header" layout:fragment="header"></section>
+            <section class="content">
+                <div layout:fragment="content"></div>
+            </section>
+        </div>
+        <footer class="main-footer">
+            <div th:replace="/fragments/footer"></div>
+        </footer>
+        <aside class="control-sidebar control-sidebar-dark">
+            <div class="p-3">AAAA</div>
+        </aside>
+    </div>
+    <script th:src="@{/webjars/AdminLTE/plugins/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/AdminLTE/plugins/jquery-ui/jquery-ui.min.js}"></script>
+    <script>
+					$.widget.bridge('uibutton', $.ui.button)
+				</script>
+    <script th:src="@{/webjars/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/webjars/AdminLTE/plugins/chart.js/Chart.min.js}"></script>
+
+    <script th:src="@{/webjars/AdminLTE/plugins/jqvmap/jquery.vmap.min.js}"></script>
+        <script th:src="@{/webjars/AdminLTE/plugins/sparklines/sparkline.js}"></script>
+    <script th:src="@{/webjars/AdminLTE/plugins/jqvmap/maps/jquery.vmap.usa.js}"></script>
+    <script th:src="@{/webjars/AdminLTE/plugins/jquery-knob/jquery.knob.min.js}"></script>
+    <script th:src="@{/webjars/AdminLTE/plugins/moment/moment.min.js}"></script>
+    <script th:src="@{/webjars/AdminLTE/plugins/daterangepicker/daterangepicker.js}"></script>
+    <script th:src="@{/webjars/AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js}"></script>
+    <script th:src="@{/webjars/AdminLTE/plugins/summernote/summernote-bs4.min.js}"></script>
+    <script th:src="@{/webjars/AdminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js}"></script>
+    <script th:src="@{/webjars/AdminLTE/dist/js/adminlte.js}"></script>
+    <!-- AdminLTE DEMO Data-->
+    <script src="/js/pages/dashboard.js"></script>
+    <script src="/js/demo.js"></script>
+</body>
+</html>
