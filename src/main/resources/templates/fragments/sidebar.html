@@ -13,18 +13,20 @@
                     <a href="#" class="d-block">Philmaster Yeah</a>
                 </div>
             </div>
-            <form class="form-inline">
-                <div class="input-group">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-sidebar" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                    <li class="nav-item">
+                        <form class="form-inline">
+                            <div class="input-group">
+                                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-sidebar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
                     <li class="nav-item">
                         <a th:href="@{pages/dashboard}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>

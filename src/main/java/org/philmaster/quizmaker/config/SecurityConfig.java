@@ -92,7 +92,9 @@ public class SecurityConfig {
 		
 		@Autowired
 		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-			  auth.inMemoryAuthentication().withUser("admin@local.de").password("123").roles("ADMIN");
+			  auth.inMemoryAuthentication().withUser("admin@local.de").password("$2a$10$e59rGaFvpijWXLh03j0aZOzBYQNrIRIjlB8sGwLvBL35fecblsW1m").roles("ADMIN");
+			  //Password is         : password
+			  //Encoded Password is : $2a$10$e59rGaFvpijWXLh03j0aZOzBYQNrIRIjlB8sGwLvBL35fecblsW1m
 		}
 	}
 

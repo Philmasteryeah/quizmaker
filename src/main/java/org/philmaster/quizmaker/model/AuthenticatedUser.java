@@ -23,6 +23,7 @@ public class AuthenticatedUser implements UserDetails, UserOwned {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO
 		return new ArrayList<>();
 	}
 

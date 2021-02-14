@@ -10,11 +10,15 @@
             | Logged user:
             <span sec:authentication="name"></span>
             | Roles:
-            <span sec:authentication="principal.authorities"></span>
+            <span sec:authentication="principal"></span>
             |
-            <a th:href="@{/logout}">Sign Out</a>
+        </span>
+        <span sec:authorize="!isAuthenticated()">
+            <strong> you are not logged in</strong>
         </span>
         <div class="float-right d-none d-sm-inline-block">
+            <a th:href="@{/api/users/logout}">Logout</a>
+            |
             <b>Version</b>
             3.0.0
         </div>
