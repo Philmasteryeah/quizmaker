@@ -15,18 +15,14 @@
 <link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css}">
 <link rel="stylesheet" th:href="@{/webjars/AdminLTE/dist/css/adminlte.min.css}">
 <link rel="stylesheet" th:href="@{/webjars/ionicons/css/ionicons.min.css}">
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<link th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700}" rel="stylesheet">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         <!-- Head Bar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <div th:replace="@{/fragments/head-bar}"></div>
-        </nav>
+        <th:block th:replace="@{/fragments/headbar} :: headbar" />
         <!-- Menu -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <div th:replace="@{/fragments/main-sidebar}"></div>
-        </aside>
+        <th:block th:replace="@{/fragments/main-sidebar} :: main-sidebar" />
         <!-- Content-->
         <div class="content-wrapper">
             <div class="content-header" layout:fragment="header"></div>
@@ -34,9 +30,9 @@
                 <div layout:fragment="content"></div>
             </section>
         </div>
-        <footer class="main-footer">
-            <div th:replace="@{/fragments/footer}"></div>
-        </footer>
+        <!-- Footer-->
+        <th:block th:replace="@{/fragments/footer}:: footer" />
+        <!-- Right Sidebar-->
         <aside class="control-sidebar control-sidebar-dark">
             <div class="p-3">Sidbar Content here</div>
         </aside>
@@ -44,8 +40,8 @@
     <script th:src="@{/webjars/AdminLTE/plugins/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/AdminLTE/plugins/jquery-ui/jquery-ui.min.js}"></script>
     <script>
-					$.widget.bridge('uibutton', $.ui.button)
-				</script>
+	    $.widget.bridge('uibutton', $.ui.button)
+	</script>
     <!-- optional Admin LTE plugins -->
     <script th:src="@{/webjars/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/webjars/AdminLTE/plugins/chart.js/Chart.min.js}"></script>
@@ -59,7 +55,7 @@
     <script th:src="@{/webjars/AdminLTE/plugins/summernote/summernote-bs4.min.js}"></script>
     <script th:src="@{/webjars/AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js}"></script>
     <script th:src="@{/webjars/AdminLTE/dist/js/adminlte.js}"></script>
-    <!-- right javascript sidebar functionalityy -->
+    <!-- right javascript sidebar functionality -->
     <script th:src="@{/js/sidebar.js}"></script>
     <!-- page specific scripts -->
     <th:block layout:fragment="script"></th:block>

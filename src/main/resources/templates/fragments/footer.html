@@ -1,11 +1,22 @@
-
-<strong>
-    Copyright &copy; 2021
-    <a href="https://github.com/Philmasteryeah" target="_blank">@Philmasteryeah</a>
-    .
-</strong>
-All rights reserved.
-<div class="float-right d-none d-sm-inline-block">
-    <b>Version</b>
-    3.0.0
-</div>
+<th:block th:fragment="footer">
+    <footer class="main-footer">
+        <strong>
+            Copyright &copy; 2021
+            <a href="https://github.com/Philmasteryeah" target="_blank">@Philmasteryeah</a>
+            .
+        </strong>
+        All rights reserved.
+        <span sec:authorize="isAuthenticated()">
+            | Logged user:
+            <span sec:authentication="name"></span>
+            | Roles:
+            <span sec:authentication="principal.authorities"></span>
+            |
+            <a th:href="@{/logout}">Sign Out</a>
+        </span>
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b>
+            3.0.0
+        </div>
+    </footer>
+</th:block>

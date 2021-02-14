@@ -50,7 +50,7 @@ public class SecurityConfig {
 							"/api/**")
 					.authorizeRequests()
 					.anyRequest()
-						.permitAll()
+						.permitAll() // change later
 				.and()
 					.httpBasic()
 				.and()
@@ -88,6 +88,11 @@ public class SecurityConfig {
 						.deleteCookies("JSESSIONID")
 						.invalidateHttpSession(true);
 
+		}
+		
+		@Autowired
+		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+			  auth.inMemoryAuthentication().withUser("admin@local.de").password("123").roles("ADMIN");
 		}
 	}
 

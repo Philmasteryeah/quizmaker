@@ -21,4 +21,14 @@ public class MenuController {
 		return "pages/dashboard";
 	}
 
+	@GetMapping(value = "error/500")
+	public String error500() {
+		return "error/500";
+	}
+
+	@GetMapping(value = "error/404")
+	public String error404() {
+		return "error/404";
+	}
+
 }

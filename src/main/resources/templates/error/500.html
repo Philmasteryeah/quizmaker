@@ -4,18 +4,23 @@
 <title>Error</title>
 </head>
 <body>
-    <section layout:fragment="header">
-        <h1>Error 500 : Internal Server Error</h1>
-        <ol class="breadcrumb">
-            <li>
-                <a href="#">
-                    <i class="fa fa-dashboard"></i>
-                    Error
-                </a>
-            </li>
-            <li class="active">500</li>
-        </ol>
-    </section>
+    <div layout:fragment="header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Error 500 : Internal Server Error</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Error 500 : Internal Server Error</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
     <div layout:fragment="content">
         <div class="error-page">
             <h2 class="headline text-red">500</h2>
