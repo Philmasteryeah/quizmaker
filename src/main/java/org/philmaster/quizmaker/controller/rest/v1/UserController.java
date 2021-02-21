@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,6 +45,13 @@ public class UserController {
 
 	@Autowired
 	private QuizService quizService;
+
+	@GetMapping(value = "")
+	@PreAuthorize("permitAll")
+	@ResponseStatus(HttpStatus.OK)
+	public Page<User> findAll(Pageable pageable) {
+		return userService.findAll(pageable);
+	}
 
 	@PostMapping(value = "/registration")
 	@PreAuthorize("permitAll")

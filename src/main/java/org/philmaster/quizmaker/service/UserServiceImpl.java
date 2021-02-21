@@ -5,6 +5,9 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +19,6 @@ import org.philmaster.quizmaker.model.AuthenticatedUser;
 import org.philmaster.quizmaker.model.User;
 import org.philmaster.quizmaker.repository.UserRepository;
 
-
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -26,8 +28,7 @@ public class UserServiceImpl implements UserService {
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository,
-			PasswordEncoder passwordEncoder) {
+	public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
@@ -76,7 +77,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User find(Long id) throws ResourceUnavailableException {
-		User user = userRepository.findById(id).orElseGet(null);
+		User user = userRepository.findById(id)
+				.orElseGet(null);
 
 		if (user == null) {
 			logger.error("The user " + id + " can't be found");
@@ -84,6 +86,11 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return user;
+	}
+
+	@Override
+	public Page<User> findAll(Pageable pageable) {
+		return userRepository.findAll(pageable);
 	}
 
 	@Override
@@ -121,5 +128,6 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(passwordEncoder.encode(password));
 		return userRepository.save(user);
 	}
+
 
 }

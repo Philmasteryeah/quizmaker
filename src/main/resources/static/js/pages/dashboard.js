@@ -17,7 +17,6 @@ $(function () {
     placeholder         : 'sort-highlight',
     handle              : '.handle',
     forcePlaceholderSize: true,
-    zIndex              : 999999
   })
 
   // bootstrap WYSIHTML5 - text editor

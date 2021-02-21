@@ -11,22 +11,27 @@ public class MenuController {
 		return "index";
 	}
 
-	@GetMapping(value = "pages/userList")
-	public String userList() {
-		return "pages/userList";
-	}
+//	@GetMapping(value = "/userList")
+//	public String userList() {
+//		return "pages/userList";
+//	}
 
-	@GetMapping(value = "pages/dashboard")
+	@GetMapping(value = "/dashboard")
 	public String dashboard() {
 		return "pages/dashboard";
 	}
 
-	@GetMapping(value = "error/500")
+	@GetMapping(value = "/quizList")
+	public String quizList() {
+		return "pages/quizList";
+	}
+
+	@GetMapping(value = "/500")
 	public String error500() {
 		return "error/500";
 	}
 
-	@GetMapping(value = "error/404")
+	@GetMapping(value = "/404")
 	public String error404() {
 		return "error/404";
 	}

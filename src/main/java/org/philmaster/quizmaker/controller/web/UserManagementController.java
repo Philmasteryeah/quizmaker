@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping
 public class UserManagementController {
 
 	@Autowired
@@ -28,26 +28,26 @@ public class UserManagementController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping(value = "/login")
+	@GetMapping(value = "/user/login")
 	@PreAuthorize("permitAll")
 	public String login(@ModelAttribute User user) {
 		return "login";
 	}
 
-	@GetMapping(value = "/login-error")
+	@GetMapping(value = "/user/login-error")
 	@PreAuthorize("permitAll")
 	public String loginError(@ModelAttribute User user, Model model) {
 		model.addAttribute("loginError", true);
 		return "login";
 	}
 
-	@GetMapping(value = "/forgotPassword")
+	@GetMapping(value = "/user/forgotPassword")
 	@PreAuthorize("permitAll")
 	public String forgotPassword() {
 		return "forgotPassword";
 	}
 
-	@PostMapping(value = "/forgotPassword")
+	@PostMapping(value = "/user/forgotPassword")
 	@PreAuthorize("permitAll")
 	public ModelAndView forgotPassword(String email) {
 		User user = userService.findByEmail(email);
@@ -61,7 +61,7 @@ public class UserManagementController {
 		return mav;
 	}
 
-	@GetMapping(value = "/{user_id}/resetPassword")
+	@GetMapping(value = "/user/{user_id}/resetPassword")
 	@PreAuthorize("permitAll")
 	public ModelAndView resetPassword(@PathVariable Long user_id, String token) {
 		User user = userService.find(user_id);
@@ -75,7 +75,7 @@ public class UserManagementController {
 		return mav;
 	}
 
-	@PostMapping(value = "/{user_id}/resetPassword")
+	@PostMapping(value = "/user/{user_id}/resetPassword")
 	@PreAuthorize("permitAll")
 	public String resetPassword(@PathVariable Long user_id, String token, String password) {
 		User user = userService.find(user_id);

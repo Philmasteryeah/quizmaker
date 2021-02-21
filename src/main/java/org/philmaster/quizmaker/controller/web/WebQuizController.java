@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,18 +37,16 @@ public class WebQuizController {
 	@Autowired
 	AccessControlService<Question> accessControlServiceQuestion;
 
-
-
 	@RequestMapping(value = "/createQuiz", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
-	public String newQuiz(Map<String, Object> model) {
+	public String newQuiz(Model model) {
 		return "createQuiz";
 	}
 
 	@RequestMapping(value = "/createQuiz", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
 	public String newQuiz(@AuthenticationPrincipal AuthenticatedUser user, Quiz quiz, BindingResult result,
-			Map<String, Object> model) {
+			Model model) {
 		Quiz newQuiz;
 
 		try {

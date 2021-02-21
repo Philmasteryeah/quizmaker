@@ -1,27 +1,25 @@
 package org.philmaster.quizmaker.controller.web;
 
-
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
 import org.philmaster.quizmaker.controller.utils.RestVerifier;
 import org.philmaster.quizmaker.exceptions.ModelVerificationException;
 import org.philmaster.quizmaker.exceptions.UserAlreadyExistsException;
 import org.philmaster.quizmaker.model.User;
 import org.philmaster.quizmaker.service.UserService;
 import org.philmaster.quizmaker.service.usermanagement.RegistrationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping
 public class RegistrationController {
 
 	@Autowired
@@ -33,13 +31,13 @@ public class RegistrationController {
 	@Autowired
 	private MessageSource messageSource;
 
-	@RequestMapping(value = "/registration", method = RequestMethod.GET)
+	@GetMapping(value = "/user/registration")
 	@PreAuthorize("permitAll")
 	public String showRegistrationForm(@ModelAttribute User user) {
 		return "registration";
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	@PostMapping(value = "/user/registration")
 	@PreAuthorize("permitAll")
 	public ModelAndView signUp(@ModelAttribute User user, BindingResult result) {
 		User newUser;
@@ -60,7 +58,7 @@ public class RegistrationController {
 		return registrationStepView(newUser, mav);
 	}
 
-	@RequestMapping(value = "/{user_id}/continueRegistration", method = RequestMethod.GET)
+	@GetMapping(value = "/user/{user_id}/continueRegistration")
 	@PreAuthorize("permitAll")
 	public ModelAndView nextRegistrationStep(@PathVariable Long user_id, String token) {
 		User user = userService.find(user_id);

@@ -1,4 +1,4 @@
-<th:block th:fragment="sidebar">
+<th:block th:fragment="menu">
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a href="/" class="brand-link">
             <img th:src="@{/webjars/AdminLTE/dist/img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -13,49 +13,54 @@
                     <a href="#" class="d-block">Philmaster Yeah</a>
                 </div>
             </div>
+            <form class="form-inline ml-3">
+                <div class="input-group" data-widget="sidebar-search">
+                    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-sidebar" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                    <li class="nav-item"></li>
                     <li class="nav-item">
-                        <form class="form-inline">
-                            <div class="input-group">
-                                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-sidebar" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </li>
-                    <li class="nav-item">
-                        <a th:href="@{pages/dashboard}" class="nav-link">
+                        <a href="#" th:href="@{/dashboard}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a th:href="@{pages/userList}" class="nav-link">
+                        <a href="#" th:href="@{/userList}" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
+                            <p>User List</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" th:href="@{/quizList}" class="nav-link">
+                            <i class="nav-icon fas fa-question"></i>
                             <p>
-                                User List
+                                Quiz List
                                 <span class="right badge badge-danger">New</span>
                             </p>
                         </a>
                     </li>
                     <li class="nav-header">Static</li>
                     <li class="nav-item">
-                        <a th:href="@{error/404}" class="nav-link">
-                            <i class="nav-icon far fa-circle text-danger"></i>
+                        <a href="#" th:href="@{/404}" class="nav-link">
+                            <i class="nav-icon far fa-circle text-warning"></i>
                             <p class="text">404</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a th:href="@{error/500}" class="nav-link">
-                            <i class="nav-icon far fa-circle text-warning"></i>
+                        <a href="#" th:href="@{/500}" class="nav-link">
+                            <i class="nav-icon far fa-circle text-danger"></i>
                             <p>500</p>
                         </a>
                     <li class="nav-item">
-                        <a th:href="@{user/login}" class="nav-link">
+                        <a href="#" th:href="@{/user/login}" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>Login</p>
                         </a>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
-<base href="/">
+
 <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">SpringBoot AdminLTE</title>
 <link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/daterangepicker/daterangepicker.css}">
 <link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/fontawesome-free/css/all.min.css}">
@@ -16,13 +16,17 @@
 <link rel="stylesheet" th:href="@{/webjars/AdminLTE/dist/css/adminlte.min.css}">
 <link rel="stylesheet" th:href="@{/webjars/ionicons/css/ionicons.min.css}">
 <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700}">
+
+<link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css}">
+<link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css}">
+<link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css}">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         <!-- Head Bar -->
         <th:block th:replace="@{/fragments/headbar} :: headbar" />
         <!-- Menu -->
-        <th:block th:replace="@{/fragments/sidebar} :: sidebar" />
+        <th:block th:replace="@{/fragments/menu} :: menu" />
         <!-- Content-->
         <div class="content-wrapper">
             <section class="content-header">
@@ -42,9 +46,10 @@
     <script th:src="@{/webjars/AdminLTE/plugins/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/AdminLTE/plugins/jquery-ui/jquery-ui.min.js}"></script>
     <script>
-	    $.widget.bridge('uibutton', $.ui.button)
-	</script>
+		    $.widget.bridge('uibutton', $.ui.button)
+		</script>
     <!-- optional Admin LTE plugins -->
+    <script th:src="@{/webjars/AdminLTE/plugins/datatables/jquery.dataTables.min.js}"></script>
     <script th:src="@{/webjars/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/webjars/AdminLTE/plugins/chart.js/Chart.min.js}"></script>
     <script th:src="@{/webjars/AdminLTE/plugins/sparklines/sparkline.js}"></script>
