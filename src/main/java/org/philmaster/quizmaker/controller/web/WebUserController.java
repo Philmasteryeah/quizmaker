@@ -1,5 +1,6 @@
 package org.philmaster.quizmaker.controller.web;
 
+import java.nio.file.attribute.UserPrincipalLookupService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,15 +39,16 @@ public class WebUserController {
 	@GetMapping(value = "/userList")
 	@PreAuthorize("permitAll")
 	public String getUserList(Model model,
-			@PageableDefault(page = 0, size = 20) @SortDefault.SortDefaults({
+			@PageableDefault(page = 0, size = 10) @SortDefault.SortDefaults({
 					@SortDefault(sort = "username", direction = Direction.DESC),
 					@SortDefault(sort = "email", direction = Direction.ASC) }) Pageable pageable) {
 		Page<User> userList = userService.findAll(pageable);
-		PageWrapper<User> page = new PageWrapper<User>(userList, "/userList");
 
-		model.addAttribute("userList", page.getContent());
-		model.addAttribute("page", page);
-
+		//PageWrapper<User> page = new PageWrapper<User>(userList, "/userList");
+		
+		model.addAttribute("userList", userList);
+		
+		
 		return "pages/userList";
 	}
 

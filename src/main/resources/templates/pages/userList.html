@@ -24,7 +24,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">DataTable with default features</h3>
+                        <h3 class="card-title">Pure Spring Thymeleaf Datatable without JQuery</h3>
                     </div>
                     <div class="card-body">
                         <div class="card-body">
@@ -34,7 +34,7 @@
                                         <div class="dataTables_length" id="example1_length">
                                             <label>
                                                 Show
-                                                <select name="example1_length" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm">
+                                                <select name="userListlength" class="custom-select custom-select-sm form-control form-control-sm">
                                                     <option value="10">10</option>
                                                     <option value="25">25</option>
                                                     <option value="50">50</option>
@@ -45,17 +45,17 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
-                                        <div id="example1_filter" class="dataTables_filter">
+                                        <div class="dataTables_filter">
                                             <label>
                                                 Search:
-                                                <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1">
+                                                <input type="search" class="form-control form-control-sm" placeholder="">
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                        <table id="example1" class="table table-bordered table-striped dataTable" role="grid">
                                             <thead>
                                                 <tr role="row">
                                                     <th th:text="#{label.user.header.id}" class="sorting_asc" />
@@ -75,28 +75,29 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-5">
-                                        <div class="dataTables_info" role="status" aria-live="polite">
-                                            <span th:text="@{${page.number}}"></span>
+                                        <div class="dataTables_info">
+                                            <span th:text="@{${userList.number}+1}"></span>
                                             -
-                                            <span th:text="@{${page.size}}"></span>
-                                            of
                                             <span th:text="@{${userList.size}}"></span>
+                                            of
+                                            <span th:text="@{${userList.totalElements}}"></span>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-7">
                                         <div class="dataTables_paginate paging_simple_numbers">
                                             <ul class="pagination">
-                                                <li class="paginate_button page-item previous" th:class="${page.hasPreviousPage}? '' : 'disabled'">
-                                                    <a href="#" th:if="${page.hasPreviousPage}" th:href="@{${page.url}(page=${page.number-2},size=${page.size})}" class="page-link">Previous</a>
-                                                </li>
-                                                <li th:each="item : ${page.items}" th:class="${item.current}? 'active' : ''" class="paginate_button page-item ">
-                                                    <a href="#" th:if="${item.current}" th:text="${item.number}" class="page-link">1</a>
-                                                    <a th:if="${not item.current}" th:href="@{${page.url}(page=${item.number-1},size=${page.size})}">
-                                                        <a href="#" th:text="${item.number}" class="page-link">1</a>
+                                                <li class="paginate_button page-item previous" th:classappend="${userList.hasPrevious}? '' : 'disabled'">
+                                                    <a href="#" th:href="@{/userList(page=${userList.number-1},size=${userList.size})}" class="page-link">
+                                                        <i class="fas fa-chevron-left"></i>
                                                     </a>
                                                 </li>
-                                                <li th:class="${page.hasNextPage}? '' : 'disabled'" class="paginate_button page-item next">
-                                                    <a href="#" th:if="${page.hasNextPage}" th:href="@{${page.url}(page=${page.number},size=${page.size})}" class="page-link">Next</a>
+                                                <li class="paginate_button page-item " th:if="${userList.totalPages > 0}" th:classappend="${i==userList.number} ? active" th:each="i : ${#numbers.sequence(0, userList.totalPages - 1)}">
+                                                    <a href="#" th:href="@{/userList(page=${i},size=${userList.size})}" th:text=${i+1} class="page-link"></a>
+                                                </li>
+                                                <li class="paginate_button page-item next" th:classappend="${userList.hasNext}? '' : 'disabled'">
+                                                    <a href="#" th:href="@{/userList(page=${userList.number+1},size=${userList.size})}" class="page-link">
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -108,8 +109,9 @@
                 </div>
             </div>
         </div>
-        <th:block layout:fragment="script">
-            <script th:src="@{/js/pages/userList.js}"></script>
-        </th:block>
+    </div>
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/pages/userList.js}"></script>
+    </th:block>
 </body>
 </html>
