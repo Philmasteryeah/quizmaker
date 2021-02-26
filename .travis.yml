@@ -13,7 +13,7 @@ cache:
     - $HOME/.gradle/wrapper/
 
 script:
-   - ./gradlew build --scan -s
+    - ./gradlew build --scan -s
 
 notifications:
   email: false  
