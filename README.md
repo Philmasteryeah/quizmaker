@@ -46,9 +46,6 @@ $ ./gradlew bootRun
 ### Login /user/login
 ![alt text](https://abload.de/img/screenshot2021-02-132yvk73.png)
 
-### Register /registration
-![alt text](https://abload.de/img/screenshot2021-02-1407aj0o.png)
-
 # Plugins used
 - **full** usage see template.html, **minimal** usage see login.html
 - chart.js/Chart.min.js
