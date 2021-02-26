@@ -1,4 +1,6 @@
  
+ [![Build Status](https://travis-ci.org/Philmasteryeah/quizmaker.svg?branch=master)](https://travis-ci.org/Philmasteryeah/quizmaker)
+ 
 ![alt text](https://abload.de/img/screenshot2021-02-1325gkcq.png)
 
 # Quizmaker
