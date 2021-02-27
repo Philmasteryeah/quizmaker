@@ -28,82 +28,106 @@
                     </div>
                     <div class="card-body">
                         <div class="card-body">
-                            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="dataTables_length" id="example1_length">
-                                            <label>
-                                                Show
-                                                <select name="userListlength" class="custom-select custom-select-sm form-control form-control-sm">
-                                                    <option value="10">10</option>
-                                                    <option value="25">25</option>
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>
-                                                </select>
-                                                entries
-                                            </label>
+                            <form th:object="${users}" th:action="@{/userList}" method="get">
+                                <div class="dataTables_wrapper dt-bootstrap4">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="dataTables_length" id="example1_length">
+                                                <label>
+                                                    Show
+                                                    <select name="userListlength" class="custom-select custom-select-sm form-control form-control-sm">
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                    entries
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="dataTables_filter">
+                                                <label>
+                                                    Search:
+                                                    <input type="search" class="form-control form-control-sm" placeholder="Username" name="search" id="search" th:value="${search?.username}" />
+                                                    <input type="submit" value="Search" />
+                                                    <div th:if="${not #lists.isEmpty(search)}">
+                                                        <table class="table table-striped">
+                                                            <tr>
+                                                                <th>Id</th>
+                                                                <th>Name</th>
+                                                                <th>Surname</th>
+                                                            </tr>
+                                                            <tr th:each="user: ${users}">
+                                                                <td th:text="${user?.id}" />
+                                                                <td th:text="${user?.username}" />
+                                                                <td th:text="${user?.email}" />
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="dataTables_filter">
-                                            <label>
-                                                Search:
-                                                <input type="search" class="form-control form-control-sm" placeholder="">
-                                            </label>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p th:text="${err}" />
+                                            <table class="table table-bordered table-striped dataTable" role="grid">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th th:class="${users?.sort?.getOrderFor('id')?.ascending} ? 'sorting_desc' : 'sorting_asc'">
+                                                            <a th:href="@{/userList(page=${users.number},size=${users.size},sort=(${users?.sort?.getOrderFor('id')?.ascending} ? 'id,desc' : 'id,asc'))}" th:text="#{label.user.header.id}" />
+                                                        </th>
+                                                        <th th:class="${users?.sort?.getOrderFor('username')?.ascending} ? 'sorting_desc' : 'sorting_asc'">
+                                                            <a th:href="@{/userList(page=${users.number},size=${users.size},sort=(${users?.sort?.getOrderFor('username')?.ascending} ? 'username,desc' : 'username,asc'))}" th:text="#{label.user.header.username}" />
+                                                        </th>
+                                                        <th th:class="${users?.sort?.getOrderFor('email')?.ascending} ? 'sorting_desc' : 'sorting_asc'">
+                                                            <a th:href="@{/userList(page=${users.number},size=${users.size},sort=(${users?.sort?.getOrderFor('email')?.ascending} ? 'email,desc' : 'email,asc'))}" th:text="#{label.user.header.email}" />
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="user : ${users}">
+                                                        <td th:text="${user?.id}" />
+                                                        <td th:text="${user?.username}" />
+                                                        <td th:text="${user?.email}" />
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-5">
+                                            <div class="dataTables_info">
+                                                <span th:text="@{${users.numberOfElements}}"></span>
+                                                -
+                                                <span th:text="@{${users.size}}"></span>
+                                                of
+                                                <span th:text="@{${users.totalElements}}"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-7">
+                                            <div class="dataTables_paginate paging_simple_numbers">
+                                                <ul class="pagination">
+                                                    <li class="paginate_button page-item previous" th:classappend="${users.hasPrevious}? '' : 'disabled'">
+                                                        <a href="#" th:href="@{/users(page=${users.number-1},size=${users.size})}" class="page-link">
+                                                            <i class="fas fa-chevron-left"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="paginate_button page-item " th:if="${users.totalPages > 0}" th:classappend="${i==users.number} ? active" th:each="i : ${#numbers.sequence(0, users.totalPages - 1)}">
+                                                        <a href="#" th:href="@{/userList(page=${i},size=${users.size})}" th:text=${i+1} class="page-link"></a>
+                                                    </li>
+                                                    <li class="paginate_button page-item next" th:classappend="${users.hasNext}? '' : 'disabled'">
+                                                        <a href="#" th:href="@{/userList(page=${users.number+1},size=${users.size})}" class="page-link">
+                                                            <i class="fas fa-chevron-right"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <table id="example1" class="table table-bordered table-striped dataTable" role="grid">
-                                            <thead>
-                                                <tr role="row">
-                                                    <th th:text="#{label.user.header.id}" class="sorting_asc" />
-                                                    <th th:text="#{label.user.header.username}" class="sorting" />
-                                                    <th th:text="#{label.user.header.email}" class="sorting" />
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="user : ${userList}">
-                                                    <td th:text="${user?.id}" />
-                                                    <td th:text="${user?.username}" />
-                                                    <td th:text="${user?.email}" />
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-5">
-                                        <div class="dataTables_info">
-                                            <span th:text="@{${userList.number}+1}"></span>
-                                            -
-                                            <span th:text="@{${userList.size}}"></span>
-                                            of
-                                            <span th:text="@{${userList.totalElements}}"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-7">
-                                        <div class="dataTables_paginate paging_simple_numbers">
-                                            <ul class="pagination">
-                                                <li class="paginate_button page-item previous" th:classappend="${userList.hasPrevious}? '' : 'disabled'">
-                                                    <a href="#" th:href="@{/userList(page=${userList.number-1},size=${userList.size})}" class="page-link">
-                                                        <i class="fas fa-chevron-left"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="paginate_button page-item " th:if="${userList.totalPages > 0}" th:classappend="${i==userList.number} ? active" th:each="i : ${#numbers.sequence(0, userList.totalPages - 1)}">
-                                                    <a href="#" th:href="@{/userList(page=${i},size=${userList.size})}" th:text=${i+1} class="page-link"></a>
-                                                </li>
-                                                <li class="paginate_button page-item next" th:classappend="${userList.hasNext}? '' : 'disabled'">
-                                                    <a href="#" th:href="@{/userList(page=${userList.number+1},size=${userList.size})}" class="page-link">
-                                                        <i class="fas fa-chevron-right"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

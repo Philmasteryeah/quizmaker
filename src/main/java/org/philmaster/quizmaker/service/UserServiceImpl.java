@@ -1,11 +1,16 @@
 package org.philmaster.quizmaker.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -129,5 +134,16 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
+	@Override
+	public Page<User> findAllBySearch(String searchTerm, Pageable pageable) {
+		if (searchTerm == null)
+			return findAll(pageable);
+		List<User> users = userRepository.findAll(pageable)
+				.filter(p -> p.getUsername()
+						.contains(searchTerm.strip()))
+				.get()
+				.collect(Collectors.toList());
+		return new PageImpl<>(users);
+	}
 
 }

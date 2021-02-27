@@ -67,7 +67,7 @@ public class WebExceptionHandler {
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("errorInfo", errorInfo);
-		mav.setViewName("errorPage");
+		mav.setViewName("error/404");
 		return mav;
 	}
 }

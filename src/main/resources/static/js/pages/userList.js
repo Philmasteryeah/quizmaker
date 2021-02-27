@@ -23,5 +23,14 @@ $(function() {
 			]
 		});
 		
+	
+
+	function createToast() {
+		$(this).Toasts('create', {
+			title: 'Toast Title',
+			body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+		})
+
+	}
 		*/
 })

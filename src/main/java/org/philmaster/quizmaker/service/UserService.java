@@ -15,13 +15,15 @@ public interface UserService extends UserDetailsService {
 
 	Page<User> findAll(Pageable pageable);
 
+	Page<User> findAllBySearch(String searchTerm, Pageable pageable);
+
 	User findByEmail(String email) throws ResourceUnavailableException;
 
 	User findByUsername(String username) throws ResourceUnavailableException;
 
 	User updatePassword(User user, String password) throws ResourceUnavailableException;
 
-	void delete(Long user_id) throws UnauthorizedActionException, ResourceUnavailableException;
+	void delete(Long userId) throws UnauthorizedActionException, ResourceUnavailableException;
 
 	User setRegistrationCompleted(User user) throws ResourceUnavailableException;
 
