@@ -35,7 +35,7 @@ $ ./gradlew bootRun
 - simple full and nice looking Thymeleaf AdminLTE 3 Template
 - all from almost one AdminLTE webjar inclusive AdminLTE Plugins
 - login and registration page, error page included, all responsive
-- less easy webjar dependencies with webjarlocator (no version numbers)
+- less easy webjar dependencies with webjarlocator
 - **full implemented working Spring User Login and Security with AOP (Aspect Oriented)**
 - AOP injects security checks around annotated methods i.e findAll, save etc.
 - the Access Control Service is the complete separation of the security stuff
