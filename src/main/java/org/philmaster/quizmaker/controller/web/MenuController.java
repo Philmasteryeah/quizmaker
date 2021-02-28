@@ -1,7 +1,10 @@
 package org.philmaster.quizmaker.controller.web;
 
+import org.philmaster.quizmaker.model.User;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 public class MenuController {
@@ -34,6 +37,12 @@ public class MenuController {
 	@GetMapping(value = "/404")
 	public String error404() {
 		return "error/404";
+	}
+
+	@GetMapping(value = "/login")
+	@PreAuthorize("permitAll")
+	public String login() {
+		return "login";
 	}
 
 }

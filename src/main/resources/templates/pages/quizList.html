@@ -9,40 +9,25 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 th:text="#{label.myquizzes.welcome}" class="card-title">Quiz List with JQuery</h3>
+                        <h3 th:text="#{label.myquizzes.welcome}" class="card-title"></h3>
                     </div>
                     <div class="card-body">
-                        <form th:object="${quizzes}" th:action="@{/quizList}" method="get">
-                            <div class="dataTables_wrapper dt-bootstrap4">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <p th:text="${err}" />
-                                        <table id="example1" class="table table-bordered table-striped dataTable" role="grid">
-                                            <thead>
-                                                <tr role="row">
-                                                    <th>
-                                                        <span th:text="#{label.quiz.header.id}" />
-                                                    </th>
-                                                    <th>
-                                                        <span th:text="#{label.quiz.header.name}" />
-                                                    </th>
-                                                    <th>
-                                                        <span th:text="#{label.quiz.header.description}" />
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="quiz : ${quizzes}">
-                                                    <td th:text="${quiz?.id}" />
-                                                    <td th:text="${quiz?.name}" />
-                                                    <td th:text="${quiz?.description}" />
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        <table id="quizList" class="table table-bordered table-striped dataTable" role="grid">
+                            <thead>
+                                <tr role="row">
+                                    <th th:text="#{label.quiz.header.id}" />
+                                    <th th:text="#{label.quiz.header.name}" />
+                                    <th th:text="#{label.quiz.header.description}" />
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr role="row" th:each="quiz : ${quizzes}">
+                                    <td th:text="${quiz?.id}" />
+                                    <td th:text="${quiz?.name}" />
+                                    <td th:text="${quiz?.description}" />
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
