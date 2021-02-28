@@ -23,6 +23,8 @@
 - serve the Quiz per REST for other Applications (e.g. Flutter App)
 - import/export JSON Quiz Files
 
+[![alt text](https://s4.gifyu.com/images/GIF-28.02.2021-01-53-26.gif)](https://gifyu.com/image/ZcL8)
+
 # How to start
 ```
 $ git clone https://github.com/Philmasteryeah/quizmaker.git
@@ -41,6 +43,7 @@ $ ./gradlew bootRun
 - the Access Control Service is the complete separation of the security stuff
 - easy and clean code, nice for extending with own stuff (e.g. permissions)
 - complete JPA Model see ERD below
+
 
 ### Dashboard /
 ![alt text](https://abload.de/img/screenshot2021-02-1320ojwd.png)

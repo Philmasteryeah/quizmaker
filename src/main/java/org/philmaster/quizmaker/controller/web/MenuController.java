@@ -21,10 +21,10 @@ public class MenuController {
 		return "pages/dashboard";
 	}
 
-	@GetMapping(value = "/quizList")
-	public String quizList() {
-		return "pages/quizList";
-	}
+//	@GetMapping(value = "/quizList")
+//	public String quizList() {
+//		return "pages/quizList";
+//	}
 
 	@GetMapping(value = "/500")
 	public String error500() {

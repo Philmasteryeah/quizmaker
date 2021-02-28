@@ -82,6 +82,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User find(Long id) throws ResourceUnavailableException {
+		if (id == null)
+			return null;
 		User user = userRepository.findById(id)
 				.orElseGet(null);
 
