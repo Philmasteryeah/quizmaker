@@ -2,7 +2,9 @@ $(function() {
 
 	'use strict'
 
-	$("#quizList").DataTable({
+
+
+	$("#dataTable").DataTable({
 		"responsive": true,
 		"lengthChange": false,
 		"autoWidth": false,

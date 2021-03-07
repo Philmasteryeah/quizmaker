@@ -7,29 +7,9 @@
     <div layout:fragment="content">
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 th:text="#{label.myquizzes.welcome}" class="card-title"></h3>
-                    </div>
-                    <div class="card-body">
-                        <table id="quizList" class="table table-bordered table-striped dataTable" role="grid">
-                            <thead>
-                                <tr role="row">
-                                    <th th:text="#{label.quiz.header.id}" />
-                                    <th th:text="#{label.quiz.header.name}" />
-                                    <th th:text="#{label.quiz.header.description}" />
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr role="row" th:each="quiz : ${quizzes}">
-                                    <td th:text="${quiz?.id}" />
-                                    <td th:text="${quiz?.name}" />
-                                    <td th:text="${quiz?.description}" />
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <th:block th:replace="@{/fragments/dataTable}  :: dataTable(titles=${ {'ID', 'Name', 'Beschreibung'}},
+                                                                            items=${quizzes} 
+                                                                            )" />
             </div>
         </div>
     </div>
@@ -46,7 +26,7 @@
         <script th:src="@{/webjars/AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
         <script th:src="@{/webjars/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
         <script th:src="@{/webjars/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
-        <script th:src="@{/js/pages/quizList.js}"></script>
+        <script th:src="@{/js/pages/dataTable.js}"></script>
     </th:block>
 </body>
 </html>
