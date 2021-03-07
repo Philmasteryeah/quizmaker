@@ -21,8 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -56,13 +55,23 @@ public class WebQuizController {
 		return "pages/quizList";
 	}
 
-	@RequestMapping(value = "/createQuiz", method = RequestMethod.GET)
+	@GetMapping(value = "/quizDetail")
+	@PreAuthorize("isAuthenticated()")
+	public String quizDetailPage(Model model) {
+
+		return "pages/quizDetail";
+
+	}
+
+	//////////////
+
+	@GetMapping(value = "/createQuiz")
 	@PreAuthorize("isAuthenticated()")
 	public String newQuiz(Model model) {
 		return "createQuiz";
 	}
 
-	@RequestMapping(value = "/createQuiz", method = RequestMethod.POST)
+	@PostMapping(value = "/createQuiz")
 	@PreAuthorize("isAuthenticated()")
 	public String newQuiz(@AuthenticationPrincipal AuthenticatedUser user, Quiz quiz, BindingResult result,
 			Model model) {
@@ -78,7 +87,7 @@ public class WebQuizController {
 		return "redirect:/editQuiz/" + newQuiz.getId();
 	}
 
-	@RequestMapping(value = "/editQuiz/{quiz_id}", method = RequestMethod.GET)
+	@GetMapping(value = "/editQuiz/{quiz_id}")
 	@PreAuthorize("isAuthenticated()")
 	public ModelAndView editQuiz(@PathVariable long quiz_id) {
 		Quiz quiz = quizService.find(quiz_id);
@@ -91,7 +100,7 @@ public class WebQuizController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/editAnswer/{question_id}", method = RequestMethod.GET)
+	@GetMapping(value = "/editAnswer/{question_id}")
 	@PreAuthorize("isAuthenticated()")
 	public ModelAndView editAnswer(@PathVariable long question_id) {
 		Question question = questionService.find(question_id);
@@ -104,7 +113,7 @@ public class WebQuizController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/quiz/{quiz_id}", method = RequestMethod.GET)
+	@GetMapping(value = "/quiz/{quiz_id}")
 	@PreAuthorize("permitAll")
 	public ModelAndView getQuiz(@PathVariable long quiz_id) {
 		Quiz quiz = quizService.find(quiz_id);
@@ -116,7 +125,7 @@ public class WebQuizController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/quiz/{quiz_id}/play", method = RequestMethod.GET)
+	@GetMapping(value = "/quiz/{quiz_id}/play")
 	@PreAuthorize("permitAll")
 	public ModelAndView playQuiz(@PathVariable long quiz_id) {
 		Quiz quiz = quizService.find(quiz_id);
