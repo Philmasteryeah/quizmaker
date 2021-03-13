@@ -5,8 +5,10 @@ import org.philmaster.quizmaker.exceptions.ModelVerificationException;
 import org.philmaster.quizmaker.model.AuthenticatedUser;
 import org.philmaster.quizmaker.model.Question;
 import org.philmaster.quizmaker.model.Quiz;
+import org.philmaster.quizmaker.model.User;
 import org.philmaster.quizmaker.service.QuestionService;
 import org.philmaster.quizmaker.service.QuizService;
+import org.philmaster.quizmaker.service.UserService;
 import org.philmaster.quizmaker.service.accesscontrol.AccessControlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,6 +37,9 @@ public class WebQuizController {
 	QuestionService questionService;
 
 	@Autowired
+	UserService userService;
+
+	@Autowired
 	AccessControlService<Quiz> accessControlServiceQuiz;
 
 	@Autowired
@@ -56,19 +61,29 @@ public class WebQuizController {
 	}
 
 	@GetMapping(value = "/quizDetail")
-	@PreAuthorize("isAuthenticated()")
-	public String quizDetailPage(Model model) {
+	@PreAuthorize("permitAll")
+	public String quizDetailPage(@AuthenticationPrincipal AuthenticatedUser user, Quiz quiz, BindingResult result,
+			Model model) {
 
-		return "pages/quizDetail";
+		System.err.println("asd");
+
+		return "/pages/quizDetail";
 
 	}
 
-	//////////////
+	@GetMapping(value = "/quizDetail/{quiz_id}")
+	@PreAuthorize("permitAll")
+	public ModelAndView quizDetail(@PathVariable long quiz_id) {
+		Quiz quiz = quizService.find(quiz_id);
+		
+		
+		//accessControlServiceQuiz.canCurrentUserUpdateObject(quiz); TODO
 
-	@GetMapping(value = "/createQuiz")
-	@PreAuthorize("isAuthenticated()")
-	public String newQuiz(Model model) {
-		return "createQuiz";
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("quiz", quiz);
+		mav.setViewName("/pages/quizDetail");
+
+		return mav;
 	}
 
 	@PostMapping(value = "/createQuiz")
@@ -78,13 +93,18 @@ public class WebQuizController {
 		Quiz newQuiz;
 
 		try {
-			RestVerifier.verifyModelResult(result);
-			newQuiz = quizService.save(quiz, user.getUser());
+//			RestVerifier.verifyModelResult(result);
+//
+			// User user2 = user.getUser();
+			User user2 = userService.findByUsername(user.getUsername());
+
+			newQuiz = quizService.save(quiz, user2);
+
 		} catch (ModelVerificationException e) {
-			return "createQuiz";
+			return "quizDetail";
 		}
 
-		return "redirect:/editQuiz/" + newQuiz.getId();
+		return "redirect:/quizDetail/" + newQuiz.getId();
 	}
 
 	@GetMapping(value = "/editQuiz/{quiz_id}")

@@ -19,8 +19,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "quiz")
 public class Quiz extends BaseModel implements UserOwned {
 
-	@OneToOne
 	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
 
 	@Size(min = 2, max = 100, message = "The name must be between 2 and 100 messages.")

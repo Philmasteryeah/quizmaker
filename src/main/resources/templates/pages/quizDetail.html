@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{template}" th:with="title=${'Quiz Detail'}">
+<head>
+<title>Quiz Detail</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <!-- edit -->
+            <div class="col-8" th:if="${quiz.name != null}">
+                <h2 th:text="${quiz.name}" class="form-signin-heading text-center">New Quiz</h2>
+                <br />
+                <h4 th:text="${quiz.description}" class="form-signin-heading">New Quiz</h4>
+                <br />
+                <a th:href="|/quiz/${quiz.id}/play|" th:text="#{label.selectedquiz.playbutton}" class="btn btn-lg btn-primary btn-block" type="submit">Send</a>
+                <h2 th:text="#{label.newquiz.pagetitle}" class="form-signin-heading text-center">New Quiz</h2>
+                <br />
+            </div>
+            <!-- create -->
+            <div class="col-8" th:unless="${quiz.name != null}">
+                <form name='f' th:action="@{/createQuiz}" th:object="${quiz}" method='POST' class="form-signin">
+                    <div class="form-group">
+                        <label th:text="#{label.newquiz.title}">Title</label>
+                        <input th:placeholder="#{label.newquiz.title.placeholder}" name="name" class="form-control" required="true" autofocus="true" />
+                        <br />
+                        <label th:text="#{label.newquiz.description}">Description</label>
+                        <textarea th:placeholder="#{label.newquiz.description.placeholder}" name="description" class="form-control" rows="5"> </textarea>
+                        <br />
+                        <button th:text="#{label.newquiz.submit}" class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

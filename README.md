@@ -33,6 +33,23 @@ $
 $ ./gradlew bootRun
 ```
 
+# Why-tldr
+- simple ADMIN LTE 3 one dependency
+- less JavaScript, without Big JS Framework like VUE.js, react, or angular
+- only Thymeleaf with Spring MVC, AOP Security,  Spring Beans, JQuery and Bootstrap
+- fast good looking backend archetype, ready to start
+
+# Why-long
+- Admin LTE 3 uses Boootstrap 4 with JQuery so we need JQuery
+- Bootstrap with Angular or Vue is totaly fail because of JQuery
+- Bootstrap 5 dont uses JQuery -> this is the new way to go
+- spring mvc is used for the internal pages made with thymeleaf
+- the internal base pages are a minimal monolithic core for user administration and tests
+- later without JQuery
+- the REST Routes can be used to be consumed by a app or other apps later -> Quizapp
+
+
+
 # Highlights completed
 - simple full and nice looking Thymeleaf AdminLTE 3 Template
 - all from almost one AdminLTE webjar inclusive AdminLTE Plugins
@@ -67,11 +84,7 @@ $ ./gradlew bootRun
 # ERD Model
 ![alt text](https://abload.de/img/screenshot2021-02-14028kmg.png)
 
-# Why
-- simple ADMIN LTE 3 one dependency
-- less JavaScript, without Big JS Framework like VUE.js, react, or angular
-- only Thymeleaf with Spring Beans, JQuery and Bootstrap
-- fast good looking backend archetype, ready to start
+
 
 # TODOs
 - user management
