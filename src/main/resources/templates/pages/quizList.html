@@ -8,6 +8,7 @@
         <div class="row">
             <div class="col-12">
                 <th:block th:replace="@{/fragments/dataTable}  :: dataTable(titles=${ {'ID', 'Name', 'Beschreibung'}},
+                                                                            values=${ {'id', 'name', 'description'}},
                                                                             items=${quizzes},
                                                                             detailPage=${{'/quizDetail'}})" />
             </div>

@@ -12,18 +12,16 @@
                 </thead>
                 <tbody>
                     <tr role="row" th:each="item : ${items}">
-                        <td th:text="${item?.id}" />
-                        <td th:text="${item?.name}" />
-                        <td th:text="${item?.description}" />
+                        <th:block th:each="val, index : ${values}">
+                            <td type="text" th:text="*{item[val]}"></td>
+                        </th:block>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-default" th:onclick="@{}">-</button>
-            <button type="submit" class="btn btn-default float-right">
-                <a th:href="@{${detailPage}}">add</a>
-            </button>
+            <a th:href="@{${detailPage}}" value="+" type="submit" class="btn btn-default float-right"> + </a>
         </div>
     </div>
 </th:block>
