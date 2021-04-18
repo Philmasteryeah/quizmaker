@@ -59,24 +59,29 @@ public class WebQuizController {
 		model.addAttribute("quizzes", quizzes);
 		return "pages/quizList";
 	}
-
+	
 	@GetMapping(value = "/quizDetail")
 	@PreAuthorize("permitAll")
-	public String quizDetailPage(@AuthenticationPrincipal AuthenticatedUser user, Quiz quiz, BindingResult result,
-			Model model) {
+	public ModelAndView quizDetail() {
+		
 
-		System.err.println("asd");
+		//accessControlServiceQuiz.canCurrentUserUpdateObject(quiz); TODO
 
-		return "/pages/quizDetail";
+		ModelAndView mav = new ModelAndView();
+		//mav.addObject("quiz", quiz);
+		mav.setViewName("/pages/quizDetail");
 
+		return mav;
 	}
+	
+
 
 	@GetMapping(value = "/quizDetail/{quiz_id}")
 	@PreAuthorize("permitAll")
 	public ModelAndView quizDetail(@PathVariable long quiz_id) {
 		Quiz quiz = quizService.find(quiz_id);
 		
-		
+		System.err.println(quiz_id);
 		//accessControlServiceQuiz.canCurrentUserUpdateObject(quiz); TODO
 
 		ModelAndView mav = new ModelAndView();
@@ -87,11 +92,11 @@ public class WebQuizController {
 	}
 
 	@PostMapping(value = "/createQuiz")
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("permitAll")
 	public String newQuiz(@AuthenticationPrincipal AuthenticatedUser user, Quiz quiz, BindingResult result,
 			Model model) {
 		Quiz newQuiz;
-
+		System.err.println("asd");
 		try {
 //			RestVerifier.verifyModelResult(result);
 //
@@ -108,14 +113,14 @@ public class WebQuizController {
 	}
 
 	@GetMapping(value = "/editQuiz/{quiz_id}")
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("permitAll")
 	public ModelAndView editQuiz(@PathVariable long quiz_id) {
 		Quiz quiz = quizService.find(quiz_id);
-		accessControlServiceQuiz.canCurrentUserUpdateObject(quiz);
+		//accessControlServiceQuiz.canCurrentUserUpdateObject(quiz);
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("quiz", quiz);
-		mav.setViewName("editQuiz");
+		mav.setViewName("/pages/quizDetail");
 
 		return mav;
 	}

@@ -10,10 +10,10 @@
                 <th:block th:replace="@{/fragments/dataTable}  :: dataTable(titles=${ {'ID', 'Name', 'Beschreibung'}},
                                                                             values=${ {'id', 'name', 'description'}},
                                                                             items=${quizzes},
-                                                                            detailPage=${{'/quizDetail'}})" />
+                                                                            isEdit = ${true},
+                                                                            detailPage=${'quizDetail'})" />
             </div>
         </div>
     </div>
-
 </body>
 </html>

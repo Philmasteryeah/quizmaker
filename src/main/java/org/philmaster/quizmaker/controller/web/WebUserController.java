@@ -1,9 +1,7 @@
 package org.philmaster.quizmaker.controller.web;
 
-import org.philmaster.quizmaker.model.User;
 import org.philmaster.quizmaker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
@@ -38,11 +36,7 @@ public class WebUserController {
 			@PageableDefault(page = 0, size = 10) @SortDefault.SortDefaults({
 					@SortDefault(sort = "username", direction = Direction.DESC),
 					@SortDefault(sort = "email", direction = Direction.ASC) }) Pageable pageable) {
-		Page<User> users = null;
-
-		users = userService.findAllBySearch(search, pageable);
-
-		model.addAttribute("users", users);
+		model.addAttribute("users", userService.findAllBySearch(search, pageable));
 		return "pages/userList";
 	}
 
