@@ -5,8 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import nz.net.ultraq.thymeleaf.LayoutDialect;
-
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
@@ -17,8 +15,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	}
 
 	@Bean
-	public LayoutDialect layoutDialect() {
-		return new LayoutDialect(); // enables thymeleaf layout:decorate
+	public nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect layoutDialect() {
+		return new nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect(); // enables thymeleaf layout:decorate
 	}
 
 }

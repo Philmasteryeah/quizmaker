@@ -1,21 +1,9 @@
 package org.philmaster.quizmaker.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import org.philmaster.quizmaker.exceptions.ResourceUnavailableException;
 import org.philmaster.quizmaker.exceptions.UnauthorizedActionException;
@@ -23,6 +11,15 @@ import org.philmaster.quizmaker.exceptions.UserAlreadyExistsException;
 import org.philmaster.quizmaker.model.AuthenticatedUser;
 import org.philmaster.quizmaker.model.User;
 import org.philmaster.quizmaker.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 @Transactional

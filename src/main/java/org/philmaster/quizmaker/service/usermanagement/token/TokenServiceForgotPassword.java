@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TokenServiceForgotPassword extends TokenServiceAbs<ForgotPasswordToken> {
 
-	@Value("${quiz.tokens.forgot_password.timeout}")
+	//@Value("${quiz.tokens.forgot_password.timeout}")
 	private Integer expirationTimeInMinutes = 86400;
 
 	@Autowired

@@ -1,6 +1,6 @@
 plugins {
-	id 'org.springframework.boot' version '2.4.2'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.springframework.boot' version '2.7.5'
+	id 'io.spring.dependency-management' version '1.1.0'
 	id 'java'
 }
 
@@ -13,6 +13,8 @@ repositories {
 }
 
 configurations {
+	compile.exclude module: 'spring-boot-starter-tomcat'
+
 	developmentOnly
 	runtimeClasspath {
 		extendsFrom developmentOnly
@@ -20,27 +22,47 @@ configurations {
 }
 
 dependencies {
-   developmentOnly("org.springframework.boot:spring-boot-devtools")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
   
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//implementation 'org.springframework.boot:spring-boot-starter-web'
 	//implementation 'org.springframework.session:spring-session-jdbc'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+    
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+	
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-reactor-netty")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+	
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	
-	compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.5.2'
-	compile group: 'javax.el', name: 'javax.el-api', version: '3.0.0'
-	compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
-	compile group: 'org.hibernate', name: 'hibernate-validator', version: '7.0.0.Final'
+	// https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect
+    implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.1.0'
 	
-	compile group: 'org.webjars', name: 'webjars-locator', version: '0.40'
-	compile group: 'org.webjars', name: 'AdminLTE', version: '3.0.5'
-	compile group: 'org.webjars', name: 'ionicons', version: '2.0.1'
+	//compile group: 'javax.el', name: 'javax.el-api', version: '3.0.0'
+	//compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+	// https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
+    
+	// https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
+    //implementation group: 'jakarta.validation', name: 'jakarta.validation-api', version: '3.0.2'
+	
+	// https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+	//compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+	
+	compile group: 'org.hibernate', name: 'hibernate-validator', version: '8.0.0.Final'
+	
+	
+	implementation group: 'org.webjars', name: 'webjars-locator', version: '0.46'
+	implementation group: 'org.webjars', name: 'AdminLTE', version: '3.2.0'
+	implementation group: 'org.webjars', name: 'ionicons', version: '2.0.1'
 	
 	
 }
@@ -51,7 +73,7 @@ test {
 
 task reload(type: Copy) {
     from 'src/main/resources'
-    into 'build/resources/main'
+    into 'target/resources/main'
     include 'static/**'
     include 'templates/**'
     dependsOn('reloadModule')
@@ -59,7 +81,7 @@ task reload(type: Copy) {
 
 task reloadModule(type: Copy){
   from '../module/src/main/resources'
-  into 'build/resources/main'
+  into 'target/resources/main'
   include 'static/**'
   include 'templates/**'
 }
@@ -71,7 +93,7 @@ task restart {
 
 task restartModule(type: Copy){
   from '../module/build/classes/'
-  into 'build/classes'
+  into 'target/classes'
   
   dependsOn(':module:classes')
 }

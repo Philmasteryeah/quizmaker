@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TokenServiceRegistration extends TokenServiceAbs<RegistrationToken> {
 
-	@Value("${quiz.tokens.registration_mail.timeout}")
+	//@Value("${quiz.tokens.registration_mail.timeout}")
 	private Integer expirationTimeInMinutes = 86400;
 
 	@Autowired

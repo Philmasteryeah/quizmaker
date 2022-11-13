@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,7 @@ public class QuestionServiceImpl implements QuestionService {
 	private AnswerService answerService;
 
 	@Autowired
-	public QuestionServiceImpl(QuestionRepository questionRepository, AnswerService answerService) {
+	public QuestionServiceImpl(QuestionRepository questionRepository, @Lazy AnswerService answerService) {
 		this.questionRepository = questionRepository;
 		this.answerService = answerService;
 	}

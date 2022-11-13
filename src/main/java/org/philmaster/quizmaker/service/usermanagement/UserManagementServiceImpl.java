@@ -1,6 +1,7 @@
 package org.philmaster.quizmaker.service.usermanagement;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import org.philmaster.quizmaker.model.ForgotPasswordToken;
@@ -18,7 +19,7 @@ public class UserManagementServiceImpl implements UserManagementService {
 	private TokenDeliverySystem tokenDeliveryService;
 
 	@Autowired
-	public UserManagementServiceImpl(UserService userService, TokenServiceForgotPassword forgotPasswordService,
+	public UserManagementServiceImpl(@Lazy UserService userService, TokenServiceForgotPassword forgotPasswordService,
 			TokenDeliverySystem tokenDeliveryService) {
 		this.forgotPasswordService = forgotPasswordService;
 		this.tokenDeliveryService = tokenDeliveryService;

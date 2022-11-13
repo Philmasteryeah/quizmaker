@@ -1,6 +1,5 @@
 package org.philmaster.quizmaker.controller.web;
 
-import org.philmaster.quizmaker.controller.utils.RestVerifier;
 import org.philmaster.quizmaker.exceptions.ModelVerificationException;
 import org.philmaster.quizmaker.model.AuthenticatedUser;
 import org.philmaster.quizmaker.model.Question;
@@ -59,30 +58,27 @@ public class WebQuizController {
 		model.addAttribute("quizzes", quizzes);
 		return "pages/quizList";
 	}
-	
+
 	@GetMapping(value = "/quizDetail")
 	@PreAuthorize("permitAll")
 	public ModelAndView quizDetail() {
-		
 
-		//accessControlServiceQuiz.canCurrentUserUpdateObject(quiz); TODO
+		// accessControlServiceQuiz.canCurrentUserUpdateObject(quiz); TODO
 
 		ModelAndView mav = new ModelAndView();
-		//mav.addObject("quiz", quiz);
+		// mav.addObject("quiz", quiz);
 		mav.setViewName("/pages/quizDetail");
 
 		return mav;
 	}
-	
-
 
 	@GetMapping(value = "/quizDetail/{quiz_id}")
 	@PreAuthorize("permitAll")
 	public ModelAndView quizDetail(@PathVariable long quiz_id) {
 		Quiz quiz = quizService.find(quiz_id);
-		
+
 		System.err.println(quiz_id);
-		//accessControlServiceQuiz.canCurrentUserUpdateObject(quiz); TODO
+		// accessControlServiceQuiz.canCurrentUserUpdateObject(quiz); TODO
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("quiz", quiz);
@@ -116,7 +112,7 @@ public class WebQuizController {
 	@PreAuthorize("permitAll")
 	public ModelAndView editQuiz(@PathVariable long quiz_id) {
 		Quiz quiz = quizService.find(quiz_id);
-		//accessControlServiceQuiz.canCurrentUserUpdateObject(quiz);
+		// accessControlServiceQuiz.canCurrentUserUpdateObject(quiz);
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("quiz", quiz);
