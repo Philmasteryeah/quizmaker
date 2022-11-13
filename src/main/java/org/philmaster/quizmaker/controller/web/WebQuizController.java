@@ -88,12 +88,13 @@ public class WebQuizController {
 	}
 
 	@PostMapping(value = "/createQuiz")
-	@PreAuthorize("permitAll")
+	@PreAuthorize("isAuthenticated()")
 	public String newQuiz(@AuthenticationPrincipal AuthenticatedUser user, Quiz quiz, BindingResult result,
 			Model model) {
 		Quiz newQuiz;
-		System.err.println("asd");
+		System.err.println("asd " + user); // TODO User must exist
 		try {
+				
 //			RestVerifier.verifyModelResult(result);
 //
 			// User user2 = user.getUser();

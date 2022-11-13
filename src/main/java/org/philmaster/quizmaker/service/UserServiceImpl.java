@@ -14,6 +14,7 @@ import org.philmaster.quizmaker.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
 	private UserRepository userRepository;
 	private PasswordEncoder passwordEncoder;
 
@@ -82,7 +84,7 @@ public class UserServiceImpl implements UserService {
 		if (id == null)
 			return null;
 		User user = userRepository.findById(id)
-				.orElseGet(null);
+				.orElse(null);
 
 		if (user == null) {
 			logger.error("The user " + id + " can't be found");

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{template}" th:with="title=${'User Detail'}">
+<head>
+<title>User Detail</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-4">
+				<div class="card">
+					<div class="card-body">
+						<!-- edit -->
+						<div class="col-12" th:if="${user != null}">
+							<form name='f' th:action="@{/editUser/{id}}" th:object="${user}" method='POST' class="form-signin">
+								<div class="form-group">
+									<label th:text="#{label.user.username}">Username</label> <input th:placeholder="#{label.user.username.placeholder}" name="username" class="form-control" required="true" autofocus="true" th:value="${user.username}" /> <br />
+									<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+								</div>
+							</form>
+						</div>
+						<!-- create -->
+						<div class="col-12" th:unless="${user != null}">
+							<form name='f' th:action="@{/createUser}" th:object="${user}" method='POST' class="form-signin">
+								<div class="form-group">
+									<label th:text="#{label.user.username}">Username</label> <input th:placeholder="#{label.user.username.placeholder}" name="username" class="form-control" required="true" autofocus="true" th:value="${user.username}" /> <br />
+									<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

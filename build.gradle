@@ -73,7 +73,7 @@ test {
 
 task reload(type: Copy) {
     from 'src/main/resources'
-    into 'target/resources/main'
+    into 'build/resources/main'
     include 'static/**'
     include 'templates/**'
     dependsOn('reloadModule')
@@ -81,7 +81,7 @@ task reload(type: Copy) {
 
 task reloadModule(type: Copy){
   from '../module/src/main/resources'
-  into 'target/resources/main'
+  into 'build/resources/main'
   include 'static/**'
   include 'templates/**'
 }
@@ -93,7 +93,7 @@ task restart {
 
 task restartModule(type: Copy){
   from '../module/build/classes/'
-  into 'target/classes'
+  into 'build/classes'
   
   dependsOn(':module:classes')
 }
