@@ -1,5 +1,10 @@
 package org.philmaster.quizmaker.controller.web;
 
+import java.util.Map;
+
+import javax.validation.Valid;
+
+import org.philmaster.quizmaker.controller.utils.RestVerifier;
 import org.philmaster.quizmaker.exceptions.ModelVerificationException;
 import org.philmaster.quizmaker.model.AuthenticatedUser;
 import org.philmaster.quizmaker.model.Quiz;
@@ -24,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping
 public class WebUserController {
 
 	@Autowired
@@ -48,13 +52,14 @@ public class WebUserController {
 		model.addAttribute("users", userService.findAllBySearch(search, pageable));
 		return "pages/userList";
 	}
-	
 
 	@GetMapping(value = "/userDetail")
 	@PreAuthorize("permitAll")
-	public ModelAndView userDetail(@ModelAttribute User user) {
+	public ModelAndView userDetail() {
+		User user = new User();
 
-		// accessControlServiceQuiz.canCurrentUserUpdateObject(quiz); TODO
+		System.err.println(user + "-new-" + user);
+		// accessControlServiceQuiz.canCurrentUserUpdateObject(user); TODO
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("user", user);
@@ -62,35 +67,14 @@ public class WebUserController {
 
 		return mav;
 	}
-	
-	@PostMapping(value = "/createUser")
-	@PreAuthorize("isAuthenticated()")
-	public String newUser(@AuthenticationPrincipal AuthenticatedUser auser, User user, BindingResult result,
-			Model model) {
-		User u = new User();
-		System.err.println(auser+" asd " + result); // TODO User must exist
-		try {
-				
-//			RestVerifier.verifyModelResult(result);
-//
-			// User user2 = user.getUser();
-			u = userService.saveUser(u);
 
-			
-
-		} catch (ModelVerificationException e) {
-			return "userDetail";
-		}
-
-		return "redirect:/userDetail/" + u.getId();
-	}
-	
-	@GetMapping(value = "/editUser/{user_id}")
+	@GetMapping(value = "/userDetail/{id}")
 	@PreAuthorize("permitAll")
-	public ModelAndView editUser( @PathVariable long user_id) {
-		
-		User user = userService.find(user_id);
-		// accessControlServiceQuiz.canCurrentUserUpdateObject(quiz);
+	public ModelAndView userDetail(@PathVariable long id) {
+		User user =  userService.find(id);
+
+		System.err.println(user + "-detail user-" + id);
+		// accessControlServiceQuiz.canCurrentUserUpdateObject(user); TODO
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("user", user);
@@ -98,7 +82,63 @@ public class WebUserController {
 
 		return mav;
 	}
+
+//	@PostMapping(value = "/createUser")
+//	@PreAuthorize("permitAll")
+//	public String createUser(@AuthenticationPrincipal AuthenticatedUser auser, User user, BindingResult result,
+//			Model model) {
+//		User u = new User();
+//		System.err.println(auser + " asd " + result); // TODO User must exist
+//
+//		try {
+//
+////			RestVerifier.verifyModelResult(result);
+////
+//			u = userService.saveUser(u);
+//
+//		} catch (ModelVerificationException e) {
+//			return "userDetail";
+//		}
+//
+//		return "redirect:/userDetail/" + u.getId();
+//	}
 	
-	
-	
+
+    @PostMapping("/createUser")
+    public String doCreateUser(@Valid @ModelAttribute("user") User user,
+                               BindingResult bindingResult,
+                               Model model) {
+    	try {
+        	RestVerifier.verifyModelResult(bindingResult);
+		} catch (ModelVerificationException e) {
+			 return "pages/userDetail";
+		}
+        if (bindingResult.hasErrors()) {
+            return "pages/userDetail";
+        }
+        try {
+        	userService.saveUser(user);	
+		} catch (Exception e) {
+			return "pages/userDetail";
+		}
+              
+        System.err.println("create user "+user.getUsername());
+        //userService.createUser(formData.toParameters());
+
+        return "redirect:/userList";
+    }
+
+    @PostMapping("/editUser")
+    public String editUser(@Valid @ModelAttribute("user") User user,
+                               BindingResult bindingResult,
+                               Model model) {
+//        if (bindingResult.hasErrors()) {
+//            return "users/create";
+//        }
+        System.err.println("edit user"+user.getUsername());
+        //userService.createUser(formData.toParameters());
+
+        return "redirect:/userList";
+    }
+
 }

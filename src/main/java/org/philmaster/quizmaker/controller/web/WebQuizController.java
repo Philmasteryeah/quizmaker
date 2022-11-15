@@ -61,23 +61,10 @@ public class WebQuizController {
 
 	@GetMapping(value = "/quizDetail")
 	@PreAuthorize("permitAll")
-	public ModelAndView quizDetail() {
+	public ModelAndView quizDetail(@RequestParam(required = false) String id) {
+		Quiz quiz = id != null ? quizService.find(Long.valueOf(id)) : new Quiz();
 
-		// accessControlServiceQuiz.canCurrentUserUpdateObject(quiz); TODO
-
-		ModelAndView mav = new ModelAndView();
-		// mav.addObject("quiz", quiz);
-		mav.setViewName("/pages/quizDetail");
-
-		return mav;
-	}
-
-	@GetMapping(value = "/quizDetail/{quiz_id}")
-	@PreAuthorize("permitAll")
-	public ModelAndView quizDetail(@PathVariable long quiz_id) {
-		Quiz quiz = quizService.find(quiz_id);
-
-		System.err.println(quiz_id);
+		System.err.println(quiz);
 		// accessControlServiceQuiz.canCurrentUserUpdateObject(quiz); TODO
 
 		ModelAndView mav = new ModelAndView();
@@ -87,40 +74,7 @@ public class WebQuizController {
 		return mav;
 	}
 
-	@PostMapping(value = "/createQuiz")
-	@PreAuthorize("isAuthenticated()")
-	public String newQuiz(@AuthenticationPrincipal AuthenticatedUser user, Quiz quiz, BindingResult result,
-			Model model) {
-		Quiz newQuiz;
-		System.err.println("asd " + user); // TODO User must exist
-		try {
-				
-//			RestVerifier.verifyModelResult(result);
-//
-			// User user2 = user.getUser();
-			User user2 = userService.findByUsername(user.getUsername());
 
-			newQuiz = quizService.save(quiz, user2);
-
-		} catch (ModelVerificationException e) {
-			return "quizDetail";
-		}
-
-		return "redirect:/quizDetail/" + newQuiz.getId();
-	}
-
-	@GetMapping(value = "/editQuiz/{quiz_id}")
-	@PreAuthorize("permitAll")
-	public ModelAndView editQuiz(@PathVariable long quiz_id) {
-		Quiz quiz = quizService.find(quiz_id);
-		// accessControlServiceQuiz.canCurrentUserUpdateObject(quiz);
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("quiz", quiz);
-		mav.setViewName("/pages/quizDetail");
-
-		return mav;
-	}
 
 	@GetMapping(value = "/editAnswer/{question_id}")
 	@PreAuthorize("isAuthenticated()")
@@ -135,10 +89,10 @@ public class WebQuizController {
 		return mav;
 	}
 
-	@GetMapping(value = "/quiz/{quiz_id}")
+	@GetMapping(value = "/quiz/{id}")
 	@PreAuthorize("permitAll")
-	public ModelAndView getQuiz(@PathVariable long quiz_id) {
-		Quiz quiz = quizService.find(quiz_id);
+	public ModelAndView getQuiz(@PathVariable long id) {
+		Quiz quiz = quizService.find(id);
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("quiz", quiz);
@@ -157,5 +111,49 @@ public class WebQuizController {
 		mav.setViewName("playQuiz");
 
 		return mav;
+	}
+	
+	@PostMapping(value = "/createQuiz")
+	@PreAuthorize("isAuthenticated()")
+	public String newQuiz(@AuthenticationPrincipal AuthenticatedUser user, Quiz quiz, BindingResult result,
+			Model model) {
+		Quiz newQuiz;
+		System.err.println("asd " + user); // TODO User must exist
+		try {
+
+//			RestVerifier.verifyModelResult(result);
+//
+			// User user2 = user.getUser();
+			User user2 = userService.findByUsername(user.getUsername());
+
+			newQuiz = quizService.save(quiz, user2);
+
+		} catch (ModelVerificationException e) {
+			return "quizDetail";
+		}
+
+		return "redirect:/quizDetail/" + newQuiz.getId();
+	}
+	
+	@PostMapping(value = "/editQuiz")
+	@PreAuthorize("isAuthenticated()")
+	public String editQuiz(@AuthenticationPrincipal AuthenticatedUser user, Quiz quiz, BindingResult result,
+			Model model) {
+		Quiz newQuiz;
+		System.err.println("asd " + user); // TODO User must exist
+		try {
+
+//			RestVerifier.verifyModelResult(result);
+//
+			// User user2 = user.getUser();
+			User user2 = userService.findByUsername(user.getUsername());
+
+			newQuiz = quizService.save(quiz, user2);
+
+		} catch (ModelVerificationException e) {
+			return "quizDetail";
+		}
+
+		return "redirect:/quizDetail/" + newQuiz.getId();
 	}
 }
