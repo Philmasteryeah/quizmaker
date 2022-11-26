@@ -1,7 +1,7 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.5'
-	id 'io.spring.dependency-management' version '1.1.0'
-	id 'java'
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
 }
 
 group = 'org.philmaster'
@@ -9,74 +9,65 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '8'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 configurations {
-	compile.exclude module: 'spring-boot-starter-tomcat'
+    compile.exclude module: 'spring-boot-starter-tomcat'
 
-	developmentOnly
-	runtimeClasspath {
-		extendsFrom developmentOnly
-	}
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
 }
 
 dependencies {
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
   
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	//implementation 'org.springframework.boot:spring-boot-starter-web'
-	//implementation 'org.springframework.session:spring-session-jdbc'
-	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    //implementation 'org.springframework.boot:spring-boot-starter-web'
+    //implementation 'org.springframework.session:spring-session-jdbc'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
     
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-	
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-reactor-netty")
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-	
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-reactor-netty'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
-	runtimeOnly 'com.h2database:h2'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-	
-	// https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect
-    implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.1.0'
-	
-	//compile group: 'javax.el', name: 'javax.el-api', version: '3.0.0'
-	//compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
-	// https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
+    runtimeOnly 'com.h2database:h2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
     
-	// https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
-    //implementation group: 'jakarta.validation', name: 'jakarta.validation-api', version: '3.0.2'
-	
-	// https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
-	//compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
-	
-	compile group: 'org.hibernate', name: 'hibernate-validator', version: '8.0.0.Final'
-	
-	
-	implementation group: 'org.webjars', name: 'webjars-locator', version: '0.46'
-	implementation group: 'org.webjars', name: 'AdminLTE', version: '3.2.0'
-	implementation group: 'org.webjars', name: 'ionicons', version: '2.0.1'
-	
-	
+    // https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect
+    implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.1.0'
+    
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '8.0.0.Final'
+    
+    
+    implementation group: 'org.webjars', name: 'webjars-locator', version: '0.46'
+    implementation group: 'org.webjars', name: 'AdminLTE', version: '3.2.0'
+    implementation group: 'org.webjars', name: 'ionicons', version: '2.0.1'
+    
+    
 }
 
 test {
-	//useJUnitPlatform()
+    //useJUnitPlatform()
 }
 
 task reload(type: Copy) {
-    from 'src/main/resources'
-    into 'build/resources/main'
-    include 'static/**'
-    include 'templates/**'
-    dependsOn('reloadModule')
+  from 'src/main/resources'
+  into 'build/resources/main'
+  include 'static/**'
+  include 'templates/**'
+  include 'custom/**'
+  dependsOn('reloadModule')
 }
 
 task reloadModule(type: Copy){
@@ -84,6 +75,7 @@ task reloadModule(type: Copy){
   into 'build/resources/main'
   include 'static/**'
   include 'templates/**'
+  include 'custom/**'
 }
 
 task restart {

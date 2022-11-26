@@ -12,6 +12,7 @@
                         <h3 class="card-title">Pure Spring Thymeleaf Datatable without JQuery</h3>
                     </div>
                     <div class="card-body">
+                    
                         <form th:object="${users}" th:action="@{/userList}" method="get">
                             <div class="dataTables_wrapper dt-bootstrap4">
                                 <div class="row">
@@ -73,8 +74,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr th:each="user : ${users}">
-                                                    <td th:text="${user?.id}" />
+                                                <tr th:each="user : ${users}">s
+                                                    <td ><a th:text="${user?.id}" th:href="@{'/userDetail/' + ${user?.id}}" ></a></td>
                                                     <td th:text="${user?.username}" />
                                                     <td th:text="${user?.email}" />
                                                 </tr>

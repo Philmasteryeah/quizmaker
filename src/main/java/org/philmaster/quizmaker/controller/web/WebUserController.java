@@ -104,7 +104,7 @@ public class WebUserController {
 //	}
 	
 
-    @PostMapping("/createUser")
+    @PostMapping("/saveUser")
     public String doCreateUser(@Valid @ModelAttribute("user") User user,
                                BindingResult bindingResult,
                                Model model) {
@@ -128,17 +128,6 @@ public class WebUserController {
         return "redirect:/userList";
     }
 
-    @PostMapping("/editUser")
-    public String editUser(@Valid @ModelAttribute("user") User user,
-                               BindingResult bindingResult,
-                               Model model) {
-//        if (bindingResult.hasErrors()) {
-//            return "users/create";
-//        }
-        System.err.println("edit user"+user.getUsername());
-        //userService.createUser(formData.toParameters());
 
-        return "redirect:/userList";
-    }
 
 }

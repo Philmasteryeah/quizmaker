@@ -9,20 +9,15 @@
 			<div class="col-4">
 				<div class="card">
 					<div class="card-body">
-						<!-- edit -->
-						<div class="col-12" th:if="${user.username != null}">
-							<form name='f' th:action="@{/editUser}" th:object="${user}" method='POST' class="form-signin">
+						<div class="col-12">
+							<form name='f' th:action="@{/saveUser}" th:object="${user}" method='POST' class="form-signin" enctype="multipart/form-data">
 								<div class="form-group">
-									<label th:text="#{label.user.username}">Username</label> <input th:placeholder="#{label.user.username.placeholder}" name="username" class="form-control" required="true" autofocus="true" th:value="${user.username}" /> <br />
-									<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
-								</div>
-							</form>
-						</div>
-						<!-- create -->
-						<div class="col-12" th:unless="${user.username != null}">
-							<form name='f' th:action="@{/createUser}" th:object="${user}" method='POST' class="form-signin" enctype="multipart/form-data">
-								<div class="form-group">
-									<label th:text="#{label.user.username}">Username</label> <input th:placeholder="#{label.user.username.placeholder}" name="username" class="form-control" required="true" autofocus="true" th:value="${user.username}" /> <br />
+									<label th:text="#{label.user.username}">Username</label> 
+									<input th:placeholder="#{label.user.username.placeholder}" name="username" class="form-control" required="true" autofocus="true" th:value="${user.username}" /> <br />
+									<label th:text="#{label.user.email}">Email</label> 
+                                    <input th:placeholder="#{label.user.email.placeholder}" name="email" class="form-control" required="true" autofocus="true" th:value="${user.email}" /> <br />
+                                    <label th:text="#{label.user.password}">Password</label> 
+                                    <input th:placeholder="#{label.user.password.placeholder}" name="password" class="form-control" required="true" autofocus="true" th:value="${user.password}" /> <br />
 									<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
 								</div>
 							</form>
