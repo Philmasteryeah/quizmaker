@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{template}" th:with="title=${'Home'}">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorate="~{template}"
+	th:with="title=${'Home'}">
 <head>
 <title>Home</title>
 </head>
 <body>
-    <div layout:fragment="content">
-        Home content
-        <div sec:authorize="isAuthenticated()">This content is only shown to authenticated users.</div>
-        <div sec:authorize="hasRole('ADMIN')">This content is only shown to administrators.</div>
-        <div sec:authorize="hasRole('USER')">This content is only shown to users.</div>
-    </div>
-    </div>
-    </div>
+	<div layout:fragment="content">
+		Home content
+		<div sec:authorize="isAuthenticated()">This content is only shown to authenticated users.</div>
+		<div sec:authorize="hasRole('ADMIN')">This content is only shown to administrators.</div>
+		<div sec:authorize="hasRole('USER')">This content is only shown to users.</div>
+	</div>
+	</div>
+	</div>
 </body>
 </html>

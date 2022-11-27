@@ -1,46 +1,90 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{template}" th:with="title=${'Quiz Detail'}">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorate="~{template}"
+	th:with="title=${'Quiz Detail'}">
 <head>
 <title>Quiz Detail</title>
 </head>
 <body>
-    <div layout:fragment="content">
-        <div class="row">
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-body">
-                        <!-- edit -->
-                        <div class="col-12" th:if="${quiz != null}">
-                            <form name='f' th:action="@{/editQuiz/{id}}" th:object="${quiz}" method='POST' class="form-signin">
-                                <div class="form-group">
-                                    <label th:text="#{label.newquiz.title}">Title</label>
-                                    <input th:placeholder="#{label.newquiz.title.placeholder}" name="name" class="form-control" required="true" autofocus="true" th:value="${quiz.name}" />
-                                    <br />
-                                    <label th:text="#{label.newquiz.description}">Description</label>
-                                    <textarea th:placeholder="#{label.newquiz.description.placeholder}" th:text="${quiz.description}" name="description" class="form-control" rows="5"> </textarea>
-                                    <br />
-                                    <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- create -->
-                        <div class="col-12" th:unless="${quiz != null}">
-                            <form name='f' th:action="@{/createQuiz}" th:object="${quiz}" method='POST' class="form-signin">
-                                <div class="form-group">
-                                    <label th:text="#{label.newquiz.title}">Title</label>
-                                    <input th:placeholder="#{label.newquiz.title.placeholder}" name="title" class="form-control" required="true" autofocus="true" />
-                                    <br />
-                                    <label th:text="#{label.newquiz.description}">Description</label>
-                                    <textarea th:placeholder="#{label.newquiz.description.placeholder}" name="description" class="form-control" rows="5"> </textarea>
-                                    <br />
-                                    <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-4">
+				<div class="card">
+					<div class="card-body">
+						<!-- edit -->
+						<div
+							class="col-12"
+							th:if="${quiz != null}">
+							<form
+								name='f'
+								th:action="@{/editQuiz/{id}}"
+								th:object="${quiz}"
+								method='POST'
+								class="form-signin">
+								<div class="form-group">
+									<label th:text="#{label.newquiz.title}">Title</label>
+									<input
+										th:placeholder="#{label.newquiz.title.placeholder}"
+										name="name"
+										class="form-control"
+										required="true"
+										autofocus="true"
+										th:value="${quiz.name}" />
+									<br />
+									<label th:text="#{label.newquiz.description}">Description</label>
+									<textarea
+										th:placeholder="#{label.newquiz.description.placeholder}"
+										th:text="${quiz.description}"
+										name="description"
+										class="form-control"
+										rows="5">
+                                    </textarea>
+									<br />
+									<button
+										class="btn btn-lg btn-primary btn-block"
+										type="submit">Save</button>
+								</div>
+							</form>
+						</div>
+						<!-- create -->
+						<div
+							class="col-12"
+							th:unless="${quiz != null}">
+							<form
+								name='f'
+								th:action="@{/createQuiz}"
+								th:object="${quiz}"
+								method='POST'
+								class="form-signin">
+								<div class="form-group">
+									<label th:text="#{label.newquiz.title}">Title</label>
+									<input
+										th:placeholder="#{label.newquiz.title.placeholder}"
+										name="title"
+										class="form-control"
+										required="true"
+										autofocus="true" />
+									<br />
+									<label th:text="#{label.newquiz.description}">Description</label>
+									<textarea
+										th:placeholder="#{label.newquiz.description.placeholder}"
+										name="description"
+										class="form-control"
+										rows="5"> </textarea>
+									<br />
+									<button
+										class="btn btn-lg btn-primary btn-block"
+										type="submit">Save</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

@@ -113,6 +113,8 @@ public class WebUserController {
 		} catch (ModelVerificationException e) {
 			 return "pages/userDetail";
 		}
+    	
+    	
         if (bindingResult.hasErrors()) {
             return "pages/userDetail";
         }

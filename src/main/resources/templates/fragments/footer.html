@@ -1,26 +1,14 @@
 <th:block th:fragment="footer">
-    <footer class="main-footer">
-        <strong>
-            Copyright &copy; 2021
-            <a href="https://github.com/Philmasteryeah" target="_blank">@Philmasteryeah</a>
-            .
-        </strong>
-        All rights reserved.
-        <span sec:authorize="isAuthenticated()">
-            | Logged user:
-            <span sec:authentication="name"></span>
-            | Roles:
-            <span sec:authentication="principal"></span>
-            |
-        </span>
-        <span sec:authorize="!isAuthenticated()">
-            <strong> you are not logged in</strong>
-        </span>
-        <div class="float-right d-none d-sm-inline-block">
-            <a th:href="@{/api/users/logout}">Logout</a>
-            |
-            <b>Version</b>
-            3.0.0
-        </div>
-    </footer>
+	<footer class="main-footer">
+		<strong> Copyright &copy; 2021 <a
+				href="https://github.com/Philmasteryeah"
+				target="_blank">@Philmasteryeah</a> .
+		</strong> All rights reserved. <span sec:authorize="isAuthenticated()"> | Logged user: <span sec:authentication="name"></span> | Roles: <span sec:authentication="principal"></span> |
+		</span> <span sec:authorize="!isAuthenticated()"> <strong> you are not logged in</strong>
+		</span>
+		<div class="float-right d-none d-sm-inline-block">
+			<a th:href="@{/api/users/logout}">Logout</a>
+			| <b>Version</b> 3.0.0
+		</div>
+	</footer>
 </th:block>
