@@ -1,6 +1,13 @@
 package org.philmaster.quizmaker.controller.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.philmaster.quizmaker.controller.utils.RestVerifier;
 import org.philmaster.quizmaker.exceptions.ModelVerificationException;
+import org.philmaster.quizmaker.model.Answer;
 import org.philmaster.quizmaker.model.AuthenticatedUser;
 import org.philmaster.quizmaker.model.Question;
 import org.philmaster.quizmaker.model.Quiz;
@@ -17,10 +24,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,8 +83,6 @@ public class WebQuizController {
 		return mav;
 	}
 
-
-
 	@GetMapping(value = "/editAnswer/{question_id}")
 	@PreAuthorize("isAuthenticated()")
 	public ModelAndView editAnswer(@PathVariable long question_id) {
@@ -112,48 +119,65 @@ public class WebQuizController {
 
 		return mav;
 	}
-	
-	@PostMapping(value = "/createQuiz")
+
+//	@PostMapping(value = "/createQuiz")
+//	@PreAuthorize("isAuthenticated()")
+//	public String newQuiz(@AuthenticationPrincipal AuthenticatedUser user, Quiz quiz, BindingResult result,
+//			Model model) {
+//		Quiz newQuiz;
+//		System.err.println("asd " + user); // TODO User must exist
+//		try {
+//
+////			RestVerifier.verifyModelResult(result);
+////
+//			// User user2 = user.getUser();
+//			User user2 = userService.findByUsername(user.getUsername());
+//
+//			newQuiz = quizService.save(quiz, user2);
+//
+//		} catch (ModelVerificationException e) {
+//			return "quizDetail";
+//		}
+//
+//		return "redirect:/quizDetail/" + newQuiz.getId();
+//	}
+
+	@PostMapping(value = "/saveQuiz")
 	@PreAuthorize("isAuthenticated()")
-	public String newQuiz(@AuthenticationPrincipal AuthenticatedUser user, Quiz quiz, BindingResult result,
-			Model model) {
-		Quiz newQuiz;
-		System.err.println("asd " + user); // TODO User must exist
+	public String saveQuiz(@AuthenticationPrincipal UserDetails authUser, @Valid @ModelAttribute("quiz") Quiz quiz,
+			BindingResult bindingResult, Model model) {
+
+		try {
+			RestVerifier.verifyModelResult(bindingResult);
+		} catch (ModelVerificationException e) {
+			return "pages/quizDetail";
+		}
+
+		System.err.println("asd " + quiz); //
 		try {
 
 //			RestVerifier.verifyModelResult(result);
 //
+			// TODO not adding new
 			// User user2 = user.getUser();
-			User user2 = userService.findByUsername(user.getUsername());
+			User user2 = userService.findByUsername(authUser.getUsername());
+			Answer answer = new Answer();
+			answer.setText("asd");
+			List<Answer> answers = new ArrayList<>();
+			answers.add(answer);
 
-			newQuiz = quizService.save(quiz, user2);
+			Question q = new Question();
+			List<Question> quests = new ArrayList<>();
+			quests.add(q);
+			quiz.setQuestions(quests);
 
-		} catch (ModelVerificationException e) {
-			return "quizDetail";
+			quizService.save(quiz, user2);
+
+		} catch (Exception e) {
+			bindingResult.rejectValue(null, "error.object", e.getMessage());
+			return "pages/quizDetail";
 		}
 
-		return "redirect:/quizDetail/" + newQuiz.getId();
-	}
-	
-	@PostMapping(value = "/editQuiz")
-	@PreAuthorize("isAuthenticated()")
-	public String editQuiz(@AuthenticationPrincipal AuthenticatedUser user, Quiz quiz, BindingResult result,
-			Model model) {
-		Quiz newQuiz;
-		System.err.println("asd " + user); // TODO User must exist
-		try {
-
-//			RestVerifier.verifyModelResult(result);
-//
-			// User user2 = user.getUser();
-			User user2 = userService.findByUsername(user.getUsername());
-
-			newQuiz = quizService.save(quiz, user2);
-
-		} catch (ModelVerificationException e) {
-			return "quizDetail";
-		}
-
-		return "redirect:/quizDetail/" + newQuiz.getId();
+		return "redirect:/quizList";
 	}
 }

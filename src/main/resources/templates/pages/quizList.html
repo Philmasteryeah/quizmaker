@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	layout:decorate="~{template}"
-	th:with="title=${'Quiz List'}">
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+    layout:decorate="~{template}"
+    th:with="title=${'Quiz List'}">
 <head>
 <title>Quiz List</title>
 </head>
 <body>
-	<div layout:fragment="content">
-		<div class="row">
-			<div class="col-12">
-				<th:block th:replace="@{/fragments/dataTable}  :: dataTable(
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col-12">
+                <th:block th:replace="@{/fragments/dataTable}  :: dataTable(
+				    header=${{'Quiz List'}},
                     titles=${ {'ID', 'Name', 'Beschreibung'}},
                     values=${ {'id', 'name', 'description'}},
                     items=${quizzes},
                     isEdit = ${true},
                     detailPage=${'quizDetail'})" />
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

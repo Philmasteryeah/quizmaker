@@ -1,53 +1,56 @@
 <th:block th:fragment="dataTable">
-	<div class="card">
-		<div class="card-header">
-			<h3 class="card-title">Title</h3>
-		</div>
-		<div class="card-body">
-			<table
-				id="dataTable"
-				class="table table-bordered table-striped dataTable"
-				role="grid">
-				<thead>
-					<tr role="row">
-						<th
-							th:each="title : ${titles}"
-							th:text="${title}" />
-						<th th:if="${isEdit}"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr
-						role="row"
-						th:each="item : ${items}">
-						<th:block th:each="val, index : ${values}">
-							<td
-								type="text"
-								th:text="*{item[val]}"></td>
-						</th:block>
-						<td th:if="${isEdit}">
-							<a
-								th:href="*{detailPage} +'/'+ *{item.id}"
-								class="btn btn-primary btn-sm float-right">
-								Edit <span
-									class="glyphicon glyphicon-edit"
-									aria-hidden="true"></span>
-							</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="card-footer">
-			<button
-				type="submit"
-				class="btn btn-default"
-				th:onclick="@{}">-</button>
-			<a
-				th:href="@{*{detailPage}}"
-				value="+"
-				type="submit"
-				class="btn btn-default float-right"> + </a>
-		</div>
-	</div>
+    <div class="card">
+        <div class="card-header">
+            <h3
+                class="card-title"
+                th:text=${header}></h3>
+        </div>
+        <div class="card-body">
+            <table
+                id="dataTable"
+                class="table table-bordered table-striped dataTable"
+                role="grid">
+                <thead>
+                    <tr role="row">
+                        <th
+                            th:each="title : ${titles}"
+                            th:text="${title}" />
+                        <th th:if="${isEdit}"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        role="row"
+                        th:each="item : ${items}">
+                        <th:block th:each="val, index : ${values}">
+                            <td
+                                type="text"
+                                th:text="*{item[val]}"></td>
+                        </th:block>
+                        <td th:if="${isEdit}">
+                            <a
+                                th:href="*{detailPage} +'/'+ *{item.id}"
+                                class="btn btn-primary btn-sm float-right">
+                                Edit
+                                <span
+                                    class="glyphicon glyphicon-edit"
+                                    aria-hidden="true"></span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <button
+                type="submit"
+                class="btn btn-default"
+                th:onclick="@{}">-</button>
+            <a
+                th:href="@{*{detailPage}}"
+                value="+"
+                type="submit"
+                class="btn btn-default float-right"> + </a>
+        </div>
+    </div>
 </th:block>

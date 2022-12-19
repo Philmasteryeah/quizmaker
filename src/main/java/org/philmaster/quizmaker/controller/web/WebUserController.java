@@ -17,9 +17,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.DefaultBindingErrorProcessor;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,7 +74,7 @@ public class WebUserController {
 	@GetMapping(value = "/userDetail/{id}")
 	@PreAuthorize("permitAll")
 	public ModelAndView userDetail(@PathVariable long id) {
-		User user =  userService.find(id);
+		User user = userService.find(id);
 
 		System.err.println(user + "-detail user-" + id);
 		// accessControlServiceQuiz.canCurrentUserUpdateObject(user); TODO
@@ -102,34 +105,31 @@ public class WebUserController {
 //
 //		return "redirect:/userDetail/" + u.getId();
 //	}
-	
 
-    @PostMapping("/saveUser")
-    public String doCreateUser(@Valid @ModelAttribute("user") User user,
-                               BindingResult bindingResult,
-                               Model model) {
-    	try {
-        	RestVerifier.verifyModelResult(bindingResult);
+	@PostMapping("/saveUser")
+	@PreAuthorize("isAuthenticated()")
+	public String saveUser(@AuthenticationPrincipal UserDetails authUser,
+			@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+		try {
+			RestVerifier.verifyModelResult(bindingResult);
 		} catch (ModelVerificationException e) {
-			 return "pages/userDetail";
-		}
-    	
-    	
-        if (bindingResult.hasErrors()) {
-            return "pages/userDetail";
-        }
-        try {
-        	userService.saveUser(user);	
-		} catch (Exception e) {
 			return "pages/userDetail";
 		}
-              
-        System.err.println("create user "+user.getUsername());
-        //userService.createUser(formData.toParameters());
 
-        return "redirect:/userList";
-    }
+		if (bindingResult.hasErrors()) {
+			return "pages/userDetail";
+		}
+		try {
+			userService.saveUser(user);
+		} catch (Exception e) {
+			bindingResult.rejectValue(null, "error.object", e.getMessage()); // The mail ... is already in use
+			return "pages/userDetail";
+		}
 
+		System.err.println("create user " + user.getUsername());
+		// userService.createUser(formData.toParameters());
 
+		return "redirect:/userList";
+	}
 
 }
